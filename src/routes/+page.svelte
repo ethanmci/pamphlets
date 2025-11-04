@@ -1,156 +1,112 @@
 <script lang="ts">
   import { invoke } from "@tauri-apps/api/core";
+  import markdownit from "markdown-it";
+  import { onMount } from "svelte";
+
+  const md = markdownit();
+
+  interface textPortion {
+    rawText: string;
+  }
 
   let name = $state("");
-  let greetMsg = $state("");
+  let mode: "edit" | "read" = $state("read");
+  let rawText: string = $state("");
+  $inspect(mode);
 
-  async function greet(event: Event) {
-    event.preventDefault();
-    // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
-    greetMsg = await invoke("greet", { name });
-  }
+  let editor: HTMLTextAreaElement | null = $state(null);
+  $inspect(editor);
+
+  const editorOnBlur = () => {
+    console.log("editor blurred!");
+    if (mode !== "read") mode = "read";
+  };
+
+  const toggleEdit = (newMode: "edit" | "read") => {
+    mode = newMode;
+    
+    if (newMode === "read" && editor !== null) editor.focus();
+  };
 </script>
 
 <main class="container">
-  <h1>Welcome to Tauri + Svelte</h1>
-
-  <div class="row">
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="/vite.svg" class="logo vite" alt="Vite Logo" />
-    </a>
-    <a href="https://tauri.app" target="_blank">
-      <img src="/tauri.svg" class="logo tauri" alt="Tauri Logo" />
-    </a>
-    <a href="https://kit.svelte.dev" target="_blank">
-      <img src="/svelte.svg" class="logo svelte-kit" alt="SvelteKit Logo" />
-    </a>
-  </div>
-  <p>Click on the Tauri, Vite, and SvelteKit logos to learn more.</p>
-
-  <form class="row" onsubmit={greet}>
-    <input id="greet-input" placeholder="Enter a name..." bind:value={name} />
-    <button type="submit">Greet</button>
-  </form>
-  <p>{greetMsg}</p>
+  <header class="editor-header">
+    <h1>Page Title</h1>
+    <div>
+      <button onclick={() => toggleEdit("read")}>Save</button>
+    </div>
+  </header>
+  <section id="editor-section" class="editor-container">
+    {#if mode === "edit"}
+      <textarea
+        onblur={() => toggleEdit("read")}
+        id="editor"
+        class="text-field"
+        bind:value={rawText}
+        bind:this={editor}
+      >
+      </textarea>
+    {:else if mode === "read"}
+      <button
+        class="text-field display-text"
+        onclick={() => toggleEdit("edit")}
+      >
+        <span>{rawText}</span>
+      </button>
+    {/if}
+  </section>
 </main>
 
 <style>
-.logo.vite:hover {
-  filter: drop-shadow(0 0 2em #747bff);
-}
+  .container {
+    margin: 0;
+    max-height: 100%;
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+    justify-content: center;
+    background-color: var(--bg-main-colour);
+  }
 
-.logo.svelte-kit:hover {
-  filter: drop-shadow(0 0 2em #ff3e00);
-}
+  .editor-header {
+    margin: 0 1em;
+  }
 
-:root {
-  font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
-  font-size: 16px;
-  line-height: 24px;
-  font-weight: 400;
+  .editor-container {
+    margin-top: 1em;
+    border-top: solid 1px var(--bg-main-colour-hover);
+    display: flex;
+    flex-grow: 1;
+  }
 
-  color: #0f0f0f;
-  background-color: #f6f6f6;
+  .text-field {
+    color: var(--text-light);
+    font-size: medium;
+    background-color: var(--bg-main-colour);
+    flex-grow: 1;
+    max-width: 100%;
+    border: none;
+    background-color: transparent;
+    resize: none;
+    outline: none;
+    resize: none;
+    margin: 0;
+    padding: 1em;
+  }
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-text-size-adjust: 100%;
-}
+  .display-text {
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+  }
 
-.container {
-  margin: 0;
-  padding-top: 10vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  text-align: center;
-}
-
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: 0.75s;
-}
-
-.logo.tauri:hover {
-  filter: drop-shadow(0 0 2em #24c8db);
-}
-
-.row {
-  display: flex;
-  justify-content: center;
-}
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-
-a:hover {
-  color: #535bf2;
-}
-
-h1 {
-  text-align: center;
-}
-
-input,
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  color: #0f0f0f;
-  background-color: #ffffff;
-  transition: border-color 0.25s;
-  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
-}
-
-button {
-  cursor: pointer;
-}
-
-button:hover {
-  border-color: #396cd8;
-}
-button:active {
-  border-color: #396cd8;
-  background-color: #e8e8e8;
-}
-
-input,
-button {
-  outline: none;
-}
-
-#greet-input {
-  margin-right: 5px;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    color: #f6f6f6;
-    background-color: #2f2f2f;
+  a {
+    font-weight: 500;
+    color: #646cff;
+    text-decoration: inherit;
   }
 
   a:hover {
-    color: #24c8db;
+    color: #535bf2;
   }
-
-  input,
-  button {
-    color: #ffffff;
-    background-color: #0f0f0f98;
-  }
-  button:active {
-    background-color: #0f0f0f69;
-  }
-}
-
 </style>
