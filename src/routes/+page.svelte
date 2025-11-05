@@ -14,9 +14,9 @@
   let editor: HTMLTextAreaElement | null = $state(null);
   $inspect(editor);
 
-  const editorOnBlur = () => {
-    console.log("editor blurred!");
-    if (mode !== "read") mode = "read";
+  const debugSaveBtn = () => {
+    toggleEdit("read");
+    invoke('save_markdown_file', { text: rawText });
   };
 
   const toggleEdit = (newMode: "edit" | "read") => {
@@ -35,7 +35,7 @@
     <h1>Page Title</h1>
     <h2>Date dd/mm/yyyy</h2>
     <div>
-      <button onclick={() => toggleEdit("read")}>Save</button>
+      <button onclick={() => debugSaveBtn()}>Save</button>
     </div>
   </header>
   <section id="editor-section" class="editor-container">
