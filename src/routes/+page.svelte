@@ -75,7 +75,7 @@
   }
 
   .editor-header > h2 {
-    font-size: small;
+    font-size: medium;
     font-weight: normal;
     color: var(--text-tertiary);
   }
@@ -88,7 +88,7 @@
   }
 
   .text-field {
-    font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
+    font-family: IBM Plex Sans, Helvetica, Arial, sans-serif;
     font-size: 16px;
     line-height: 24px;
     font-weight: 400;

@@ -1,3 +1,8 @@
+@font-face {
+  font-family: IBM Plex Sans;
+  src: url(../static/IBMPlexSans.ttf);
+}
+
 /* -- Variables -- */
 :root {
   --bg-main: hsl(187 0% 10%);

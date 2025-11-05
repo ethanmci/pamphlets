@@ -20,10 +20,10 @@
 
 <style>
   :root {
-    font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
+    font-family: IBM Plex Sans, Helvetica, Arial, sans-serif;
     font-size: 16px;
     line-height: 24px;
-    font-weight: 400;
+    font-weight: 600;
     margin: 0;
 
     color: var(--text-primary);
