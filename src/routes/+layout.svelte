@@ -1,10 +1,12 @@
 <script lang="ts">
   import type { LayoutProps } from "./$types";
+  import '../main.css'
 
   const { children }: LayoutProps = $props();
   const notes: { title: String }[] = $state([
     { title: "Note 1" },
     { title: "Note 2" },
+    { title: "Note 3" },
   ]);
 </script>
 
@@ -24,8 +26,8 @@
     font-weight: 400;
     margin: 0;
 
-    color: var(--text-light);
-    background-color: var(--bg-main-colour);
+    color: var(--text-primary);
+    background-color: var(--bg-main);
 
     font-synthesis: none;
     text-rendering: optimizeLegibility;
@@ -35,11 +37,6 @@
 
     height: 100%;
     width: 100%;
-
-    /* variables -- to be moved later in development */
-    --bg-main-colour: hsl(187 0% 17%);
-    --bg-main-colour-hover: hsl(187 0% 30%);
-    --text-light: hsl(187 0% 92.5%);
   }
 
   :global(body) {
@@ -54,16 +51,17 @@
     flex-direction: column;
     width: 15em;
     padding: 1em;
-    border-right: 1px solid var(--bg-main-colour-hover);
+    background-color: var(--bg-secondary);
+    border-right: 1px solid var(--bg-main-hover);
     gap: 0.25em;
   }
 
   .file-selector {
     font-size: medium;
     text-align: left;
-    color: var(--text-light);
+    color: var(--text-primary);
     width: 100%;
-    background-color: var(--bg-main-colour);
+    background-color: var(--bg-secondary);
     border-radius: 0.25em;
     border: none;
     cursor: pointer;
@@ -72,6 +70,6 @@
   }
 
   .file-selector:hover {
-    background-color: var(--bg-main-colour-hover);
+    background-color: var(--bg-main-hover);
   }
 </style>
