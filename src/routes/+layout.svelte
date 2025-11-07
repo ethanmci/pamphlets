@@ -1,6 +1,8 @@
 <script lang="ts">
   import type { LayoutProps } from "./$types";
   import '../main.css'
+  import Modal from "../components/Modal.svelte";
+  import FileSelector from "../components/FileSelector.svelte";
 
   const { children }: LayoutProps = $props();
   const notes: { title: String }[] = $state([
@@ -15,6 +17,10 @@
     <button class="file-selector">{note.title}</button>
   {/each}
 </nav>
+
+<Modal title="Select a base directory">
+  <FileSelector></FileSelector>
+</Modal>
 
 {@render children()}
 

@@ -11,6 +11,9 @@
   --text-primary: hsl(187 0% 92%);
   --text-secondary: hsl(187 0% 82%);
   --text-tertiary: hsl(187 0% 72%);
+
+  --rounding: (0.25em);
+  --rounding-lg: (1em);
 }
 
 [data-theme="light"] {
@@ -44,3 +47,31 @@
 }
 
 /* -- end scroll override -- */
+
+.shadow {
+  box-shadow: 0 10px 10px black;
+}
+
+/* standard element styling */
+button {
+  font-size: medium;
+  text-align: left;
+  color: var(--text-primary);
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--text-tertiary);
+  border-radius: var(--rounding);
+  cursor: pointer;
+  padding: 0.5em;
+  transition: background-color 100ms ease-out;
+}
+
+button:hover {
+  background-color: var(--bg-main-hover);
+}
+
+form, fieldset {
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
