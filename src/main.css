@@ -8,12 +8,13 @@
   --bg-main: hsl(187 0% 10%);
   --bg-main-hover: hsl(187 0% 18%);
   --bg-secondary: hsl(187 0% 12%);
+  --border-main: hsl(187 0% 30%);
   --text-primary: hsl(187 0% 92%);
   --text-secondary: hsl(187 0% 82%);
   --text-tertiary: hsl(187 0% 72%);
 
-  --rounding: (0.25em);
-  --rounding-lg: (1em);
+  --rounding: 0.25em;
+  --rounding-lg: 1em;
 }
 
 [data-theme="light"] {
@@ -53,19 +54,19 @@
 }
 
 /* standard element styling */
-button {
+button, input[type="submit"] {
   font-size: medium;
   text-align: left;
   color: var(--text-primary);
   background-color: var(--bg-secondary);
-  border: 1px solid var(--text-tertiary);
+  border: 1px solid var(--border-main);
   border-radius: var(--rounding);
   cursor: pointer;
   padding: 0.5em;
   transition: background-color 100ms ease-out;
 }
 
-button:hover {
+button:hover, input[type="submit"]:hover {
   background-color: var(--bg-main-hover);
 }
 
