@@ -2,9 +2,9 @@
 use std::fs::File;
 use std::io::prelude::*;
 use std::path::PathBuf;
+use std::path::Path;
 use std::sync::Mutex;
 use tauri::{Manager, State};
-use tauri_plugin_dialog::DialogExt;
 
 #[derive(Default)]
 struct AppState {
@@ -31,10 +31,8 @@ fn set_base_dir(
 }
 
 #[tauri::command]
-async fn get_base_dir(state: State<'_, Mutex<AppState>>) -> Result<(), String> {
-    let state = state.lock().unwrap();
-    state.active_file.display().to_string();
-    Ok(())
+async fn dir_exists(path: String) -> bool {
+    Path::new(&path).exists()
 }
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
@@ -42,7 +40,7 @@ pub fn run() {
     tauri::Builder::default()
         .plugin(tauri_plugin_dialog::init())
         .plugin(tauri_plugin_opener::init())
-        .invoke_handler(tauri::generate_handler![save_markdown_file, set_base_dir])
+        .invoke_handler(tauri::generate_handler![save_markdown_file, set_base_dir, dir_exists])
         .setup(|app| {
             app.manage(Mutex::new(AppState {
                 active_file: PathBuf::new(),
