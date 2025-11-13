@@ -8,11 +8,16 @@
   --bg-main: hsl(187 0% 10%);
   --bg-main-hover: hsl(187 0% 18%);
   --bg-secondary: hsl(187 0% 12%);
+  --bg-tertiary: hsl(0, 0%, 30%);
   --border-main: hsl(187 0% 30%);
   --text-primary: hsl(187 0% 92%);
   --text-secondary: hsl(187 0% 82%);
   --text-tertiary: hsl(187 0% 72%);
 
+  --success: hsl(129, 70%, 40%);
+  --warn: hsl(51, 70%, 40%);
+  --danger: hsl(0, 70%, 40%);
+  
   --rounding: 0.25em;
   --rounding-lg: 1em;
 }
@@ -53,6 +58,10 @@
   box-shadow: 0 10px 10px black;
 }
 
+.border-danger {
+  border-color: var(--danger) !important;
+}
+
 /* standard element styling */
 button, input[type="submit"] {
   font-size: medium;
@@ -69,6 +78,11 @@ button, input[type="submit"] {
 button:hover, input[type="submit"]:hover {
   background-color: var(--bg-main-hover);
 }
+
+button:disabled, input[type="submit"]:disabled {
+  background-color: var(--bg-tertiary) !important;
+}
+
 
 form, fieldset {
   border: none;

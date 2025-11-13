@@ -23,11 +23,10 @@ fn save_markdown_file(text: String) -> Result<(), String> {
 fn set_base_dir(
     state: State<'_, Mutex<AppState>>,
     dir_string_to_parse: String,
-) -> Result<(), String> {
+) -> PathBuf {
     let mut state = state.lock().unwrap();
     state.active_file = PathBuf::from(dir_string_to_parse);
-    //Ok(state.active_file) => println!("Result: {}", state.active_file)
-    Ok(())
+    return state.active_file.clone()
 }
 
 #[tauri::command]
