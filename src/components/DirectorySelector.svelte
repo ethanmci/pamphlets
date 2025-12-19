@@ -5,13 +5,16 @@
     let currentPath: string = $state('');
     let isPathValid: boolean = $state(false);
 
+    $inspect(currentPath);
+
     $effect(() => {
         updatePathValid();
     })
 
-    onMount(() => {
+    onMount(async () => {
         // get current base directory 
-        // currentPath = ....
+        const storedPath: string = await invoke('get_base_dir', {});
+        if(storedPath.length !== 0) currentPath = storedPath;
     })
 
     const updatePathValid = async () => {
@@ -29,22 +32,28 @@
             directory: true,
         });
         if (newDir !== null) {
+            console.log('path updated...')
             currentPath = newDir.toString();
-            const res = await invoke('set_base_dir', { dirStringToParse: currentPath });
+            updatePathValid();
         }
     }
 
     const setBaseDir = async () => {
         console.log('Saving new directory path...');
         try {
-            const set: boolean = await invoke('set_base_dir', { dir_string_to_parse: currentPath });
-            isPathValid = doesDirectoryExist;
+            const set: boolean = await invoke('set_base_dir', { dirStringToParse: currentPath });
+            console.log('...', set)
         } catch (error) {
             isPathValid = false;
+            console.error(error)
         }
     }
+
+    const saveBaseDir = () => {
+
+    }
 </script>
-<form onsubmit={() => setBaseDir()}>
+<form onsubmit={async () => setBaseDir()}>
     <fieldset class="dir-group" name="set-dir-path">
         <legend>Directory Path</legend>
         <button onclick={() => chooseBaseDir()}>Open directory</button>

@@ -1,8 +1,11 @@
 <script lang="ts">
   import type { LayoutProps } from "./$types";
-  import '../main.css'
+  import "../main.css";
   import Modal from "../components/Modal.svelte";
   import DirectorySelector from "../components/DirectorySelector.svelte";
+
+  type ModalTypes = "none" | "directory"
+  let openModal: ModalTypes = $state("none");
 
   const { children }: LayoutProps = $props();
   const notes: { title: String }[] = $state([
@@ -18,15 +21,21 @@
   {/each}
 </nav>
 
-<Modal title="Select a base directory">
-  <DirectorySelector></DirectorySelector>
-</Modal>
+{#if openModal as ModalTypes == "directory"}
+  <Modal title="Select a base directory">
+    <DirectorySelector></DirectorySelector>
+  </Modal>
+{/if}
 
 {@render children()}
 
 <style>
   :root {
-    font-family: IBM Plex Sans, Helvetica, Arial, sans-serif;
+    font-family:
+      IBM Plex Sans,
+      Helvetica,
+      Arial,
+      sans-serif;
     font-size: 16px;
     line-height: 24px;
     font-weight: 600;
