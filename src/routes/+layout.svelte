@@ -4,7 +4,7 @@
   import Modal from "../components/Modal.svelte";
   import DirectorySelector from "../components/DirectorySelector.svelte";
 
-  type ModalTypes = "none" | "directory"
+  type ModalTypes = "none" | "directory";
   let openModal: ModalTypes = $state("none");
 
   const { children }: LayoutProps = $props();
@@ -12,16 +12,26 @@
     { title: "Note 1" },
     { title: "Note 2" },
     { title: "Note 3" },
+    { title: "Note 4" },
+    { title: "Note 5" },
+    { title: "Note 6" },
+    { title: "Note 7" },
+    { title: "Note 8" },
+    { title: "Note 9" },
+    { title: "Note 10" },
   ]);
 </script>
 
-<nav class="file-menu">
-  {#each notes as note}
-    <button class="file-selector">{note.title}</button>
-  {/each}
-</nav>
+<section class="sidebar">
+  <nav class="file-menu">
+    {#each notes as note}
+      <button class="file-selector">{note.title}</button>
+    {/each}
+  </nav>
+  <button class="settings-btn">Settings</button>
+</section>
 
-{#if openModal as ModalTypes == "directory"}
+{#if (openModal as ModalTypes) == "directory"}
   <Modal title="Select a base directory">
     <DirectorySelector></DirectorySelector>
   </Modal>
@@ -61,6 +71,16 @@
     margin: 0;
   }
 
+  .sidebar {
+    display: flex;
+    flex-direction: column;
+    width: 15em;
+    padding: 1em;
+    background-color: var(--bg-secondary);
+    border-right: 1px solid var(--bg-main-hover);
+    gap: 0.25em;
+  }
+
   .file-menu {
     display: flex;
     flex-direction: column;
@@ -69,6 +89,7 @@
     background-color: var(--bg-secondary);
     border-right: 1px solid var(--bg-main-hover);
     gap: 0.25em;
+    overflow-y: scroll;
   }
 
   .file-selector {
@@ -86,5 +107,9 @@
 
   .file-selector:hover {
     background-color: var(--bg-main-hover);
+  }
+
+  .settings-btn {
+    justify-self: end;
   }
 </style>
