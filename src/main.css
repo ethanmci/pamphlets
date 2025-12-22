@@ -1,92 +1,114 @@
 @font-face {
-  font-family: IBM Plex Sans;
-  src: url(../static/IBMPlexSans.ttf);
+	font-family: IBM Plex Sans;
+	src: url(../static/IBMPlexSans.ttf);
 }
 
 /* -- Variables -- */
 :root {
-  --bg-main: hsl(187 0% 10%);
-  --bg-main-hover: hsl(187 0% 18%);
-  --bg-secondary: hsl(187 0% 12%);
-  --bg-tertiary: hsl(0, 0%, 30%);
-  --border-main: hsl(187 0% 30%);
-  --text-primary: hsl(187 0% 92%);
-  --text-secondary: hsl(187 0% 82%);
-  --text-tertiary: hsl(187 0% 72%);
+	--bg-main: hsl(187 0% 10%);
+	--bg-main-hover: hsl(187 0% 18%);
+	--bg-secondary: hsl(187 0% 12%);
+	--bg-tertiary: hsl(0, 0%, 30%);
+	--border-main: hsl(187 0% 30%);
+	--text-primary: hsl(187 0% 92%);
+	--text-secondary: hsl(187 0% 82%);
+	--text-tertiary: hsl(187 0% 72%);
 
-  --success: hsl(129, 70%, 40%);
-  --warn: hsl(51, 70%, 40%);
-  --danger: hsl(0, 70%, 40%);
-  
-  --rounding: 0.25em;
-  --rounding-lg: 1em;
+	--success: hsl(129, 70%, 40%);
+	--warn: hsl(51, 70%, 40%);
+	--danger: hsl(0, 70%, 40%);
+
+	--rounding: 0.25em;
+	--rounding-lg: 1em;
+	font-family:
+      IBM Plex Sans,
+      Helvetica,
+      Arial,
+      sans-serif;
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 600;
+    margin: 0;
+
+    color: var(--text-primary);
+    background-color: var(--bg-main);
+
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-text-size-adjust: 100%;
+
+    height: 100dvh;
+    width: 100dvw;
 }
 
 [data-theme="light"] {
-  --bg-main: hsl(187 0% 90%);
-  --bg-main-hover: hsl(187 0% 82%);
-  --bg-secondary: hsl(187 0% 76%);
-  --text-primary: hsl(187 0% 8%);
-  --text-secondary: hsl(187 0% 18%);
+	--bg-main: hsl(187 0% 90%);
+	--bg-main-hover: hsl(187 0% 82%);
+	--bg-secondary: hsl(187 0% 76%);
+	--text-primary: hsl(187 0% 8%);
+	--text-secondary: hsl(187 0% 18%);
 }
 
 /* -- Custom scroll override -- */
 ::-webkit-scrollbar {
-  width: 5px;
+	width: 5px;
 }
 
 /* Track */
 ::-webkit-scrollbar-track {
-  box-shadow: inset 0 0 5px grey;
-  border-radius: 5px;
+	border-radius: 5px;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: red;
-  border-radius: 10px;
+	background: var(--text-tertiary);
+	border-radius: 10px;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: antiquewhite;
+	background: var(--text-secondary);
 }
 
 /* -- end scroll override -- */
 
 .shadow {
-  box-shadow: 0 10px 10px black;
+	box-shadow: 0 10px 10px black;
 }
 
 .border-danger {
-  border-color: var(--danger) !important;
+	border-color: var(--danger) !important;
 }
 
 /* standard element styling */
-button, input[type="submit"] {
-  font-size: medium;
-  text-align: left;
-  color: var(--text-primary);
-  background-color: var(--bg-secondary);
-  border: 1px solid var(--border-main);
-  border-radius: var(--rounding);
-  cursor: pointer;
-  padding: 0.5em;
-  transition: background-color 100ms ease-out;
+button,
+input[type="submit"] {
+	font-size: medium;
+	text-align: left;
+	color: var(--text-primary);
+	background-color: var(--bg-secondary);
+	border: 1px solid var(--border-main);
+	border-radius: var(--rounding);
+	cursor: pointer;
+	padding: 0.5em;
+	transition: background-color 100ms ease-out;
 }
 
-button:hover, input[type="submit"]:hover {
-  background-color: var(--bg-main-hover);
+button:hover,
+input[type="submit"]:hover {
+	background-color: var(--bg-main-hover);
 }
 
-button:disabled, input[type="submit"]:disabled {
-  background-color: var(--bg-tertiary) !important;
+button:disabled,
+input[type="submit"]:disabled {
+	background-color: var(--bg-tertiary) !important;
 }
 
-
-form, fieldset {
-  border: none;
-  padding: 0;
-  margin: 0;
+form,
+fieldset {
+	border: none;
+	padding: 0;
+	margin: 0;
 }
-
