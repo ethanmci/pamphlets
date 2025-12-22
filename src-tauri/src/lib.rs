@@ -1,12 +1,12 @@
 // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
+use serde_json::json;
 use std::fs::File;
 use std::io::prelude::*;
 use std::path::Path;
 use std::path::PathBuf;
 use std::sync::Mutex;
-use tauri_plugin_store::StoreExt;
-use serde_json::json;
 use tauri::{Manager, State};
+use tauri_plugin_store::StoreExt;
 
 #[derive(Default)]
 struct AppState {
@@ -22,10 +22,13 @@ fn save_markdown_file(text: String) -> Result<(), String> {
 }
 
 #[tauri::command]
-fn set_base_dir(state: State<'_, Mutex<AppState>>, dir_string_to_parse: String) -> Result<PathBuf, String> {
-    if !Path::new(&dir_string_to_parse).exists() { 
+fn set_base_dir(
+    state: State<'_, Mutex<AppState>>,
+    dir_string_to_parse: String,
+) -> Result<PathBuf, String> {
+    if !Path::new(&dir_string_to_parse).exists() {
         return Err("Specified path does not exist".to_string());
-    } 
+    }
     let mut state = state.lock().unwrap();
     state.active_file = PathBuf::from(dir_string_to_parse);
     return Ok(state.active_file.clone());
@@ -39,7 +42,7 @@ fn get_base_dir(state: State<'_, Mutex<AppState>>) -> PathBuf {
 
 #[tauri::command]
 async fn save_base_dir() -> Result<(), String> {
-  Ok(())
+    Ok(())
 }
 
 #[tauri::command]
