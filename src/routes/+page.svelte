@@ -16,18 +16,16 @@
 
   const debugSaveBtn = () => {
     toggleEdit("read");
-    invoke('save_markdown_file', { text: rawText });
+    invoke("save_markdown_file", { text: rawText });
   };
 
   const toggleEdit = (newMode: "edit" | "read") => {
     mode = newMode;
-    
+
     if (newMode === "read" && editor !== null) editor.focus();
   };
 
-  onDestroy(() => {
-    
-  })
+  onDestroy(() => {});
 </script>
 
 <main class="container">
@@ -88,7 +86,11 @@
   }
 
   .text-field {
-    font-family: IBM Plex Sans, Helvetica, Arial, sans-serif;
+    font-family:
+      IBM Plex Sans,
+      Helvetica,
+      Arial,
+      sans-serif;
     font-size: 16px;
     line-height: 24px;
     font-weight: 400;
