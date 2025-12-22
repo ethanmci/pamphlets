@@ -1,13 +1,19 @@
 <script lang="ts">
   import { onDestroy, onMount, type Snippet } from "svelte";
-  let { title, children }: { title: string; children?: Snippet } = $props();
+  let {
+    title,
+    closeFn,
+    children,
+  }: { title: string; closeFn: () => void; children?: Snippet } = $props();
   let isOpen = $state(true);
-
 </script>
 
 <div id="overlay">
   <dialog class="modal shadow" open={isOpen}>
-    <h2>{title}</h2>
+    <section class="header">
+      <h2 class="header-text">{title}</h2>
+      <button class="close-btn" onclick={closeFn}>X</button>
+    </section>
     <hr />
     {@render children?.()}
   </dialog>
@@ -25,7 +31,7 @@
     position: absolute;
     height: 100%;
     width: 100%;
-    background-color: hsla(0 0% 0% / 0.2);
+    background-color: hsla(0 0% 0% / 0.4);
     display: flex;
     align-items: center;
     justify-items: center;
@@ -41,5 +47,28 @@
     height: auto;
     min-width: 50%;
     max-width: 1200px;
+    position: relative;
+  }
+
+  .header {
+    display: flex;
+    align-items: center;
+  }
+
+  .header > h1,
+  h2 {
+    flex-grow: 1;
+  }
+  .close-btn {
+    height: 2.5em;
+    width: 2.5em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: larger;
+  }
+
+  .close-btn:hover {
+    background-color: var(--danger);
   }
 </style>
